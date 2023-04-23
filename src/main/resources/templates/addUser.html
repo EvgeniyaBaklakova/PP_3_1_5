@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/admin/addUser/}" th:object="${user}">
+
+    <input id="id" th:field="*{id}" type="hidden">
+
+    <label for="name">Enter Name:</label>
+    <input id="name" th:field="*{name}" type="text">
+    <br><br>
+    <label for="surname">Enter Surname:</label>
+    <input id="surname" th:field="*{surName}" type="text">
+    <br><br>
+    <label for="age">Enter Age:</label>
+    <input id="age" th:field="*{age}" type="text">
+    <br><br>
+    <label for="username">Enter User Name</label>
+    <input id="username" th:field="*{userName}" type="text">
+    <br><br>
+    <label for="password">Enter Password</label>
+    <input id="password" th:field="*{password}" type="password">
+    <br><br>
+    <label>Is Active:</label>
+    <input th:field="*{active}" type="radio" value="true"/>Yes
+    <input th:field="*{active}" type="radio" value="false"/>No
+    <br><br>
+    <p>
+        <label>Roles:
+            <input type="checkbox" name="roles"
+                   th:each="role : ${roles}"
+                   th:text="${role}"
+                   th:value="${role}"
+                   th:field="*{roles}"
+            />
+        </label>
+    </p>
+    <br><br>
+    <input type="submit" th:value="Add">
+    <br><br>
+    <input type="button" th:value="Выйти" onclick="window.location.href = '/logout'">
+</form>
+</body>
+</html>
