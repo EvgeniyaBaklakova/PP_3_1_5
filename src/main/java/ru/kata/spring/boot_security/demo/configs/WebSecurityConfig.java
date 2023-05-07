@@ -25,17 +25,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
                 .authorizeRequests()//авторизация для определенных url
-                .antMatchers("/", "/index").permitAll()//разрешаем всем ролям просмотр указанных адресов
+                .antMatchers("/", "/auth/login").permitAll()//разрешаем всем ролям просмотр указанных адресов
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
+                .formLogin()
+                .loginPage("/auth/login")
+                .loginProcessingUrl("/auth/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .successHandler(successUserHandler)
                 .permitAll()
                 .and()
                 .logout()
+                .logoutSuccessUrl("/auth/login")
                 .permitAll();
     }
 
