@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao{
     @Override
     public void updateUser(User user, String[] roles) {
         user.setRoles(rolesDao.getRoles(roles));
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setPassword(user.getPassword());
         entityManager.merge(user);
     }
 
