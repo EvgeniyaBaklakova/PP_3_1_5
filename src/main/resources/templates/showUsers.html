@@ -53,7 +53,7 @@
             <td th:text="${users.age}">Age</td>
             <td th:text="${users.email}">Email</td>
             <td th:text="${users.roles}">Role</td>
-     <td>
+            <td>
                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
                         th:data-bs-target="${'#edit' + users.id}">Edit
                 </button>
@@ -62,48 +62,57 @@
                         <div class="modal-content">
                             <div class="card-header"><h5><b>Edit user</b></h5></div>
                             <div class="modal-body">
-                            <form class="mx-auto text-center" th:method="PATCH" th:action="@{/admin/edit/{id}(id=${users.getId()})}"
-                                  th:object="${user}">
-                                <div class="modal-body">
-                                    <label><b>ID</b></label>
-                                    <input type="text" th:name="id" th:value="${users.id}" th:id="id" class="form-control">
-                                    <br>
-                                    <label><b>First name</b></label>
-                                    <input type="text" th:name="firstName" th:value="${users.firstName}" th:id="firstName" class="form-control">
-                                    <br>
-                                    <label><b>Last name</b></label>
-                                    <input type="text" th:name="lastName" th:value="${users.lastName}" th:id="lastName" class="form-control">
-                                    <br>
-                                    <label><b>Age</b></label>
-                                    <input type="text" th:name="age" th:value="${users.age}" th:id="age" class="form-control">
-                                    <br>
-                                    <label><b>Email</b></label>
-                                    <input type="text" th:name="email" th:value="${users.email}" th:id="email" class="form-control">
-                                    <br>
-                                    <label><b>Password</b></label>
-                                    <input type="text" th:name="password" th:value="${users.password}" th:id="password" class="form-control">
-                                    <br>
-                                    <label><b>Role</b></label>
-                                    <select th:id="roles" multiple
-                                            class="custom-select" size="2"
-                                            aria-label="selectRole"
-                                            th:field="*{roles}">
-                                        <option selected th:each="role: ${roles}"
-                                                th:text="${role.role}"
-                                                th:value="${role.role}"
+                                <form class="mx-auto text-center" th:method="PATCH"
+                                      th:action="@{/admin/edit/{id}(id=${users.getId()})}"
+                                      th:object="${user}">
+                                    <div class="modal-body">
+                                        <label><b>ID</b></label>
+                                        <input type="text" th:name="id" th:value="${users.id}" th:id="id"
+                                               class="form-control">
+                                        <br>
+                                        <label><b>First name</b></label>
+                                        <input type="text" th:name="firstName" th:value="${users.firstName}"
+                                               th:id="firstName" class="form-control">
+                                        <br>
+                                        <label><b>Last name</b></label>
+                                        <input type="text" th:name="lastName" th:value="${users.lastName}"
+                                               th:id="lastName" class="form-control">
+                                        <br>
+                                        <label><b>Age</b></label>
+                                        <input type="text" th:name="age" th:value="${users.age}" th:id="age"
+                                               class="form-control">
+                                        <br>
+                                        <label><b>Email</b></label>
+                                        <input type="text" th:name="email" th:value="${users.email}" th:id="email"
+                                               class="form-control">
+                                        <br>
+                                        <label><b>Password</b></label>
+                                        <input type="text" th:name="password" th:value="${users.password}"
+                                               th:id="password" class="form-control">
+                                        <br>
+                                        <label><b>Role</b></label>
+                                        <select th:id="roles" multiple
+                                                class="custom-select" size="2"
+                                                aria-label="selectRole"
                                                 th:field="*{roles}">
-                                        </option>
-                                    </select>
-                                    <div class="modal-footer justify-content-end">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <input type="submit" class="btn btn-primary"
-                                               value="Edit"/>
+                                            <option selected th:each="role: ${roles}"
+                                                    th:text="${role.role}"
+                                                    th:value="${role.role}"
+                                                    th:field="*{roles}">
+                                            </option>
+                                        </select>
+                                        <div class="modal-footer justify-content-end">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <input type="submit" class="btn btn-primary"
+                                                   value="Edit"/>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </td>
             <td>
@@ -116,45 +125,54 @@
                         <div class="modal-content">
                             <div class="card-header"><h5><b>Delete user</b></h5></div>
                             <div class="modal-body">
-                <form class="mx-auto text-center" th:method="DELETE" th:action="@{admin/delete/{id}(id=${users.id})}">
-                    <div class="modal-body">
-                        <label><b>ID</b></label>
-                        <input type="text" th:name="id" th:value="${users.id}" th:id="id" class="form-control">
-                        <br>
-                        <label><b>First name</b></label>
-                        <input type="text" th:name="id" th:value="${users.firstName}" th:id="id" class="form-control">
-                        <br>
-                        <label><b>Last name</b></label>
-                        <input type="text" th:name="id" th:value="${users.lastName}" th:id="id" class="form-control">
-                        <br>
-                        <label><b>Age</b></label>
-                        <input type="text" th:name="id" th:value="${users.age}" th:id="id" class="form-control">
-                        <br>
-                        <label><b>Email</b></label>
-                        <input type="text" th:name="id" th:value="${users.email}" th:id="id" class="form-control">
-                        <br>
-                        <label><b>Password</b></label>
-                        <input type="text" th:name="id" th:value="${users.password}" th:id="id" class="form-control">
-                        <br>
-                        <label><b>Role</b></label>
-                        <select th:id="roles"size="2" multiple class="custom-select"
-                                aria-label="selectRole" th:field="*{roles}">
-                            <option selected th:each="role: ${roles}"
-                                    th:text="${role.role}"
-                                    th:value="${role.role}"
-                                    th:field="*{roles}">
-                            </option>
-                        </select>
-                        <div class="modal-footer justify-content-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-danger"
-                                   value="Delete"/>
+                                <form class="mx-auto text-center" th:method="DELETE"
+                                      th:action="@{admin/delete/{id}(id=${users.id})}">
+                                    <div class="modal-body">
+                                        <label><b>ID</b></label>
+                                        <input type="text" th:name="id" th:value="${users.id}" th:id="id"
+                                               class="form-control">
+                                        <br>
+                                        <label><b>First name</b></label>
+                                        <input type="text" th:name="id" th:value="${users.firstName}" th:id="id"
+                                               class="form-control">
+                                        <br>
+                                        <label><b>Last name</b></label>
+                                        <input type="text" th:name="id" th:value="${users.lastName}" th:id="id"
+                                               class="form-control">
+                                        <br>
+                                        <label><b>Age</b></label>
+                                        <input type="text" th:name="id" th:value="${users.age}" th:id="id"
+                                               class="form-control">
+                                        <br>
+                                        <label><b>Email</b></label>
+                                        <input type="text" th:name="id" th:value="${users.email}" th:id="id"
+                                               class="form-control">
+                                        <br>
+                                        <label><b>Password</b></label>
+                                        <input type="text" th:name="id" th:value="${users.password}" th:id="id"
+                                               class="form-control">
+                                        <br>
+                                        <label><b>Role</b></label>
+                                        <select th:id="roles" size="2" multiple class="custom-select"
+                                                aria-label="selectRole" th:field="*{roles}">
+                                            <option selected th:each="role: ${roles}"
+                                                    th:text="${role.role}"
+                                                    th:value="${role.role}"
+                                                    th:field="*{roles}">
+                                            </option>
+                                        </select>
+                                        <div class="modal-footer justify-content-end">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <input type="submit" class="btn btn-danger"
+                                                   value="Delete"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </form>
-                        </div>
-                    </div>
-                </div>
                 </div>
             </td>
         </tr>
