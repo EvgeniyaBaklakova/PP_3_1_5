@@ -1,32 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User information</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <title>User page</title>
 </head>
 <body>
-<form METHOD="get" th:action="@{/user}" th:object="${user}">
-
-    <input type="hidden" th:field="*{id}" id="id">
-
-    <label for="name">Name:</label>
-    <input id="name" th:field="*{name}" type="text">
-    <br><br>
-    <label for="surname">Surname:</label>
-    <input id="surname" th:field="*{surName}" type="text">
-    <br><br>
-    <label for="age">Age:</label>
-    <input id="age" th:field="*{age}" type="text">
-    <br><br>
-    <label for="username">UserName</label>
-    <input id="username" th:field="*{userName}" type="text">
-    <br><br>
-    <label>Is Active:</label>
-    <input th:field="*{active}" type="radio" value="true"/>Yes
-    <input th:field="*{active}" type="radio" value="false"/>No
-    <br><br>
-    <input type="button" th:value="Выйти" onclick="window.location.href = '/logout'">
-
-</form>
+<nav th:replace="navbar :: navbar"></nav>
+<div class="container-fluid col-md-2 float-left">
+    <div class="row">
+        <div class="btn-group-vertical btn-group-md" data-toggle="buttons">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/user">User</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-md-10 float-left">
+    <h1>User information page</h1>
+    <h3 class="card-header">About users</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+        <br>
+        <tr>
+            <td th:text="${user.id}">ID</td>
+            <td th:text="${user.firstName}">First Name</td>
+            <td th:text="${user.lastName}">Last Name</td>
+            <td th:text="${user.age}">Age</td>
+            <td th:text="${user.userName}">Email</td>
+            <td th:text="${user.roles}">Role</td>
+        </tr>
+    </table>
+</div>
+<br>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 </html>

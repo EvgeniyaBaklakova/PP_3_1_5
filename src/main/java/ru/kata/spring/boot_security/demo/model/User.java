@@ -24,10 +24,8 @@ public class User implements UserDetails {
     public String lastName;
     @Column(name = "Age")
     public int age;
-    @Column(name = "Email")
+    @Column(name = "email")
     public String email;
-    @Column(name = "Is_active")
-    private boolean isActive;
 
     @Column(name = "username")
     private String userName;
@@ -43,19 +41,30 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Integer id, String firstName, String lastName, int age, String email, boolean isActive, String userName,
+    public User(Integer id, String firstName, String lastName, int age, String email, String userName,
                 String password, Set<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
-        this.isActive = isActive;
         this.userName = userName;
         this.password = password;
         this.roles = roles;
     }
+    @Transient
+    public boolean isAdmin() {
+        return roles.stream()
+                .map(Role::getRole)
+                .anyMatch(role -> role.equals("ADMIN"));
+    }
 
+    @Transient
+    public boolean isUser() {
+        return roles.stream()
+                .map(Role::getRole)
+                .anyMatch(role -> (role.equals("USER") || role.equals("ADMIN")));
+    }
     public void addRoles(Role role) {
         roles.add(role);
     }
@@ -69,36 +78,12 @@ public class User implements UserDetails {
     }
 
 
-    public String getName() {
-        return firstName;
-    }
-
-    public void setName(String name) {
-        this.firstName = name;
-    }
-
-    public String getSurName() {
-        return lastName;
-    }
-
-    public void setSurName(String surName) {
-        this.lastName = surName;
-    }
-
     public int getAge() {
         return age;
     }
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     public String getUserName() {
@@ -162,22 +147,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isActive;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isActive;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isActive;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return isActive;
+        return true;
     }
 
     @Override
@@ -204,7 +189,6 @@ public class User implements UserDetails {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", email=" + email +
-                ", isActive=" + isActive +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +

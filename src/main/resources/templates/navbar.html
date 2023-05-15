@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <a href="#" class="navbar-brand"><b>[[${user.getUsername()}]]</b> with roles:
+                [[${#strings.listJoin(user.getRoles(),' ')}]]</a>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+                <li>
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</html>

@@ -1,47 +1,56 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <title>Update user</title>
 </head>
 <body>
+<div class="modal" th:id="'edit' + ${user.id}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+        data-whatever="@mdo">Открыть модальное окно для @mdo</button>-->
 <form th:method="PATCH" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
+    <div class="modal-body">
+    <label for="id">ID</label>
+    <input id="id" th:field="*{id}" type="text">
 
-    <input id="id" th:field="*{id}" type="hidden">
-
-    <label for="name">Enter Name:</label>
-    <input id="name" th:field="*{name}" type="text">
+    <label for="firstName">First name</label>
+    <input id="firstName" th:field="*{firstName}" type="text">
     <br><br>
-    <label for="surname">Enter Surname:</label>
-    <input id="surname" th:field="*{surName}" type="text">
+    <label for="lastName">Last name</label>
+    <input id="lastName" th:field="*{lastName}" type="text">
     <br><br>
-    <label for="age">Enter Age:</label>
+    <label for="age">Age</label>
     <input id="age" th:field="*{age}" type="text">
     <br><br>
-    <label for="username">Enter User Name</label>
-    <input id="username" th:field="*{userName}" type="text">
+    <label for="email">Email</label>
+    <input id="email" th:field="*{email}" type="text">
     <br><br>
-    <label for="password">Enter Password</label>
+    <label for="password">Password</label>
     <input id="password" th:field="*{password}" type="password">
     <br><br>
-    <label>Is Active:</label>
-    <input th:field="*{active}" type="radio" value="true"/>Yes
-    <input th:field="*{active}" type="radio" value="false"/>No
+    <label><b>Role</b></label>
+    <select th:id="roles" size="2" multiple class="custom-select" id="inlineFormCustomSelect" aria-label="selectRole" th:field="*{roles}">
+        <option selected th:each="role: ${roles}"
+                th:text="${role}"
+                th:value="${role}"
+                th:field="*{roles}">
+        </option>
+    </select>
     <br><br>
-    <p>
-        <label>Roles:
-            <input type="checkbox" name="roles"
-                   th:each="role : ${roles}"
-                   th:text="${role}"
-                   th:value="${role}"
-                   th:field="*{roles}"
-            />
-        </label>
-    </p>
+    <input type="submit" th:value="Add">
     <br><br>
-    <input type="submit" th:value="Update">
-    <br><br>
-    <input type="button" th:value="Logout" onclick="window.location.href = '/logout'">
+    <input type="button" th:value="Logout" onclick="window.location.href = '/logout';">
+    </div>
 </form>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>-->
+        </div>
+    </div>
+</div>
 </body>
 </html>

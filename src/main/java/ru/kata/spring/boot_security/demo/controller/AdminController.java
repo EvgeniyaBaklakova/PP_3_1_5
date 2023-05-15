@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +21,19 @@ public class AdminController {
     }
     @GetMapping()
     public String getAllUsers(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
         model.addAttribute("allUsers", userService.getAllUsers());
-        return "showUsers";
+        model.addAttribute("roles", roleService.getAllRoles());
+        return "/showUsers";
     }
     @GetMapping("/addUser")
     public String addUserForm(Model model) {
-        model.addAttribute("user", new User());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        model.addAttribute("newUser", new User());
         model.addAttribute("roles", roleService.getAllRoles());
-        return "addUser";
+        return "/addUser";
     }
     @PostMapping("addUser")
     public String addUser(@ModelAttribute("user") User user,
@@ -36,14 +42,14 @@ public class AdminController {
         return "redirect:/admin";
     }
     @GetMapping("/edit/{id}")
-    public String updateUserForm(@PathVariable("id") int id, Model model){
-        model.addAttribute("user", userService.getUserById(id));
+    public String returnUser(@PathVariable("id") int id, Model model) {
+        model.addAttribute("nowUser", userService.getUserById(id));
         model.addAttribute("roles", roleService.getAllRoles());
-        return "updateUser";
+        return "showUsers";
     }
     @PatchMapping("edit/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") int id,
-                             @RequestParam("roles") String[] roles){
+    public String update(@ModelAttribute("user") User user,
+                         @RequestParam("roles") String[] roles) {
         userService.updateUser(user, roles);
         return "redirect:/admin";
     }
