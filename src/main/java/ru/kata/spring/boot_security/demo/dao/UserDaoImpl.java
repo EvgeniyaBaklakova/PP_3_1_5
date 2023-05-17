@@ -13,11 +13,9 @@ public class UserDaoImpl implements UserDao{
 
     @PersistenceContext
     private EntityManager entityManager;
-    private final PasswordEncoder encoder;
     private final RolesDao rolesDao;
 
-    public UserDaoImpl(PasswordEncoder encoder, RolesDao rolesDao) {
-        this.encoder = encoder;
+    public UserDaoImpl(RolesDao rolesDao) {
         this.rolesDao = rolesDao;
     }
 
@@ -25,7 +23,6 @@ public class UserDaoImpl implements UserDao{
     @Override
     public void addUser(User user, String[] role) {
         user.setRoles(rolesDao.getRoles(role));
-        user.setPassword(encoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 
