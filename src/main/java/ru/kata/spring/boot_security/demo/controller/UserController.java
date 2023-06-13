@@ -18,11 +18,4 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    @GetMapping()
-    public String showUser(Model model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
-        return "infoUser";
-    }
 }
