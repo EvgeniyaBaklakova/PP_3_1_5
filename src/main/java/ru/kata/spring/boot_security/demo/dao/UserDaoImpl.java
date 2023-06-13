@@ -12,12 +12,6 @@ public class UserDaoImpl implements UserDao{
 
     @PersistenceContext
     private EntityManager entityManager;
-    private final RolesDao rolesDao;
-
-    public UserDaoImpl(RolesDao rolesDao) {
-        this.rolesDao = rolesDao;
-    }
-
 
     @Override
     public void addUser(User user) {
@@ -45,7 +39,6 @@ public class UserDaoImpl implements UserDao{
     @Override
     public boolean updateUser(User user) {
         if (getUserById(user.getId()) != null) {
-            user.setPassword(user.getPassword());
             entityManager.merge(user);
             return true;
         } else {
